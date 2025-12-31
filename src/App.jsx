@@ -10,6 +10,11 @@ const App = () => {
     const [savedWords, setSavedWords] = useState([]);
     const [view, setView] = useState('search'); // 'search' or 'library'
     const [status, setStatus] = useState('');
+    const [expandedMeanings, setExpandedMeanings] = useState({});
+
+    const toggleMeaning = (idx) => {
+        setExpandedMeanings(prev => ({ ...prev, [idx]: !prev[idx] }));
+    };
 
     const speak = (text) => {
         if (!window.speechSynthesis) return;
@@ -181,12 +186,37 @@ const App = () => {
                                         <div className="space-y-6">
                                             {data.meanings.map((m, idx) => (
                                                 <div key={idx} className="space-y-3">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="px-2 py-0.5 bg-scarlet/10 text-scarlet rounded-full text-[10px] font-bold border border-scarlet/20 shrink-0">
-                                                            {m.part_of_speech}
-                                                        </span>
-                                                        <p className="text-sm font-bold text-zinc-800 leading-snug">{m.definition}</p>
+                                                    <div className="flex items-center justify-between gap-3">
+                                                        <div className="flex items-center gap-2 overflow-hidden">
+                                                            <span className="px-2 py-0.5 bg-scarlet/10 text-scarlet rounded-full text-[10px] font-bold border border-scarlet/20 shrink-0">
+                                                                {m.part_of_speech}
+                                                            </span>
+                                                            <p className="text-sm font-bold text-zinc-800 leading-snug truncate">
+                                                                {m.short_definition || m.definition.split('。')[0]}
+                                                            </p>
+                                                        </div>
+                                                        <button
+                                                            onClick={() => toggleMeaning(idx)}
+                                                            className="text-[10px] text-gold font-bold hover:text-scarlet transition-colors whitespace-nowrap px-2 py-1 rounded-md bg-zinc-100/50"
+                                                        >
+                                                            {expandedMeanings[idx] ? '閉じる' : '詳細'}
+                                                        </button>
                                                     </div>
+
+                                                    <AnimatePresence>
+                                                        {expandedMeanings[idx] && (
+                                                            <motion.div
+                                                                initial={{ height: 0, opacity: 0 }}
+                                                                animate={{ height: 'auto', opacity: 1 }}
+                                                                exit={{ height: 0, opacity: 0 }}
+                                                                className="overflow-hidden"
+                                                            >
+                                                                <p className="text-xs text-zinc-600 leading-relaxed pl-1 pt-1 mb-2 border-l border-gold/30 ml-1">
+                                                                    {m.definition}
+                                                                </p>
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
 
                                                     <div className="space-y-2 pl-3 border-l-2 border-zinc-200/50 ml-1">
                                                         {m.examples.map((ex, i) => (
@@ -256,38 +286,39 @@ const App = () => {
                             保存した単語 ({savedWords.length})
                         </h2>
 
-                        <div className="grid gap-4">
+                        <div className="grid gap-2">
                             {savedWords.length === 0 ? (
                                 <div className="text-center py-20 bg-ivory/50 rounded-xl border border-dashed border-zinc-300">
                                     <p className="text-zinc-500 text-sm font-medium">保存された単語はありません。</p>
                                 </div>
                             ) : (
                                 savedWords.map((item) => (
-                                    <div key={item.id} className="premium-card p-6 flex justify-between items-center group hover:border-scarlet/30 transition-all">
-                                        <div>
-                                            <div className="flex items-baseline gap-3 mb-1">
-                                                <span className="text-xl font-bold text-zinc-800">{item.word}</span>
-                                                <span className="text-zinc-500 text-sm font-medium">{item.data.pinyin}</span>
+                                    <div key={item.id} className="premium-card px-4 py-2 flex justify-between items-center group hover:border-scarlet/30 transition-all gap-4">
+                                        <div className="flex items-center gap-3 overflow-hidden flex-1">
+                                            <div className="flex items-baseline gap-1.5 shrink-0">
+                                                <span className="text-base font-bold text-zinc-800">{item.word}</span>
+                                                <span className="text-[10px] text-zinc-400 font-medium">{item.data.pinyin}</span>
                                             </div>
-                                            <p className="text-zinc-600 text-xs font-medium line-clamp-1">
-                                                {item.data.meanings?.[0]?.definition || item.data.definitions?.original}
+                                            <p className="text-zinc-500 text-[11px] font-medium truncate uppercase">
+                                                {item.data.meanings?.[0]?.short_definition || (item.data.meanings?.[0]?.definition || item.data.definitions?.original || '').split('。')[0]}
                                             </p>
                                         </div>
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-1 shrink-0">
                                             <button
                                                 onClick={() => {
                                                     setData(item.data);
                                                     setView('search');
+                                                    setExpandedMeanings({});
                                                 }}
-                                                className="btn-ghost"
+                                                className="p-1.5 text-zinc-400 hover:text-scarlet transition-colors"
                                             >
-                                                表示
+                                                <Search className="w-4 h-4" />
                                             </button>
                                             <button
                                                 onClick={() => deleteWord(item.id)}
-                                                className="p-2 text-zinc-400 hover:text-scarlet transition-colors"
+                                                className="p-1.5 text-zinc-300 hover:text-scarlet transition-colors"
                                             >
-                                                <Trash2 className="w-5 h-5" />
+                                                <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>
                                     </div>
@@ -302,7 +333,7 @@ const App = () => {
             {/* Footer */}
             < footer className="mt-8 pb-4 text-center text-gold/60 text-[10px] space-y-1" >
                 <p>&copy; 2026 Chinese AI Coach</p>
-                <p className="opacity-70 font-bold">Version 1.0.4</p>
+                <p className="opacity-70 font-bold">Version 1.0.5</p>
             </footer >
         </div >
     );
