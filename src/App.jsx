@@ -96,20 +96,20 @@ const App = () => {
         <div className="max-w-2xl mx-auto px-4 py-4 min-h-screen">
             {/* Navigation */}
             <nav className="flex justify-between items-center mb-6">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-scarlet to-gold bg-clip-text text-transparent flex items-center gap-2">
+                <h1 className="text-xl font-bold text-gold flex items-center gap-2">
                     <Languages className="w-6 h-6 text-scarlet" />
                     Chinese AI Coach
                 </h1>
-                <div className="flex bg-zinc-100 p-1 rounded-xl shadow-sm border border-zinc-200">
+                <div className="flex bg-ivory p-1 rounded-xl shadow-sm border border-zinc-300/50">
                     <button
                         onClick={() => setView('search')}
-                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'search' ? 'bg-scarlet text-white shadow-md' : 'text-zinc-500 hover:text-scarlet'}`}
+                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'search' ? 'bg-scarlet text-white shadow-md' : 'text-gold hover:text-scarlet'}`}
                     >
                         <Search className="w-4 h-4" />
                     </button>
                     <button
                         onClick={() => setView('library')}
-                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'library' ? 'bg-scarlet text-white shadow-md' : 'text-zinc-500 hover:text-scarlet'}`}
+                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'library' ? 'bg-scarlet text-white shadow-md' : 'text-gold hover:text-scarlet'}`}
                     >
                         <Book className="w-4 h-4" />
                     </button>
@@ -194,22 +194,22 @@ const App = () => {
                                         </div>
 
                                         <div className="space-y-3">
-                                            <h3 className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">例文</h3>
+                                            <h3 className="text-gold text-[10px] font-bold uppercase tracking-wider">例文</h3>
                                             {data.examples.map((ex, i) => (
-                                                <div key={i} className="bg-zinc-50 border border-zinc-100 rounded-lg p-3 space-y-1 group/item">
+                                                <div key={i} className="bg-white/40 border border-zinc-200/50 rounded-lg p-3 space-y-1 group/item">
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-1.5 text-scarlet text-[10px] font-bold">
                                                             <ArrowRight className="w-2.5 h-2.5" /> {ex.scenario}
                                                         </div>
                                                         <button
                                                             onClick={() => speak(ex.zh)}
-                                                            className="p-1 hover:bg-zinc-200 rounded-md transition-all text-zinc-400 hover:text-scarlet"
+                                                            className="p-1 hover:bg-white/60 rounded-md transition-all text-zinc-400 hover:text-scarlet"
                                                         >
                                                             <Volume2 className="w-3.5 h-3.5" />
                                                         </button>
                                                     </div>
                                                     <p className="text-lg font-medium text-zinc-900">{ex.zh}</p>
-                                                    <p className="text-zinc-600 text-sm">{ex.jp}</p>
+                                                    <p className="text-zinc-700 text-sm font-medium">{ex.jp}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -218,28 +218,28 @@ const App = () => {
                                     {/* Synonyms & Tips */}
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div className="premium-card p-4">
-                                            <h3 className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider mb-2">類義語</h3>
+                                            <h3 className="text-gold text-[10px] font-bold uppercase tracking-wider mb-2">類義語</h3>
                                             <div className="space-y-2">
                                                 {data.synonyms.map((syn, i) => (
-                                                    <div key={i} className="flex justify-between items-center border-b border-zinc-100 pb-1">
+                                                    <div key={i} className="flex justify-between items-center border-b border-zinc-200 pb-1">
                                                         <div className="flex items-center gap-2">
                                                             <span className="font-bold text-sm text-zinc-800">{syn.word}</span>
-                                                            <span className="text-[10px] text-zinc-400">{syn.pinyin}</span>
-                                                            <button onClick={() => speak(syn.word)} className="text-zinc-300 hover:text-scarlet transition-colors">
+                                                            <span className="text-[10px] text-zinc-500 font-medium">{syn.pinyin}</span>
+                                                            <button onClick={() => speak(syn.word)} className="text-zinc-400 hover:text-scarlet transition-colors">
                                                                 <Volume2 className="w-3 h-3" />
                                                             </button>
                                                         </div>
-                                                        <span className="text-[11px] text-zinc-600">{syn.nuance}</span>
+                                                        <span className="text-[11px] text-zinc-700 font-medium">{syn.nuance}</span>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
                                         <div className="premium-card p-4">
-                                            <h3 className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider mb-2">使い分けのコツ</h3>
-                                            <p className="text-xs leading-relaxed text-zinc-700">{data.usage_tips}</p>
+                                            <h3 className="text-gold text-[10px] font-bold uppercase tracking-wider mb-2">使い分けのコツ</h3>
+                                            <p className="text-xs leading-relaxed text-zinc-800 font-medium">{data.usage_tips}</p>
                                             <div className="mt-3 flex flex-wrap gap-1.5">
                                                 {data.summary.map((tag, i) => (
-                                                    <span key={i} className="text-[9px] bg-zinc-100 text-zinc-500 px-1.5 py-0.5 rounded border border-zinc-200">#{tag}</span>
+                                                    <span key={i} className="text-[9px] bg-white/50 text-gold px-1.5 py-0.5 rounded border border-gold/20 font-bold">#{tag}</span>
                                                 ))}
                                             </div>
                                         </div>
@@ -254,15 +254,15 @@ const App = () => {
                         animate={{ opacity: 1 }}
                         className="space-y-4"
                     >
-                        <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-zinc-800">
+                        <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-gold">
                             <Book className="w-6 h-6 text-scarlet" />
                             保存した単語 ({savedWords.length})
                         </h2>
 
                         <div className="grid gap-4">
                             {savedWords.length === 0 ? (
-                                <div className="text-center py-20 bg-zinc-50 rounded-xl border border-dashed border-zinc-200">
-                                    <p className="text-zinc-400 text-sm">保存された単語はありません。</p>
+                                <div className="text-center py-20 bg-ivory/50 rounded-xl border border-dashed border-zinc-300">
+                                    <p className="text-zinc-500 text-sm font-medium">保存された単語はありません。</p>
                                 </div>
                             ) : (
                                 savedWords.map((item) => (
@@ -270,9 +270,9 @@ const App = () => {
                                         <div>
                                             <div className="flex items-baseline gap-3 mb-1">
                                                 <span className="text-2xl font-bold text-zinc-900">{item.word}</span>
-                                                <span className="text-zinc-500">{item.data.pinyin}</span>
+                                                <span className="text-zinc-600 font-medium">{item.data.pinyin}</span>
                                             </div>
-                                            <p className="text-zinc-600 text-sm line-clamp-1">{item.data.definitions.original}</p>
+                                            <p className="text-zinc-700 text-sm font-medium line-clamp-1">{item.data.definitions.original}</p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button
@@ -286,7 +286,7 @@ const App = () => {
                                             </button>
                                             <button
                                                 onClick={() => deleteWord(item.id)}
-                                                className="p-2 text-zinc-300 hover:text-scarlet transition-colors"
+                                                className="p-2 text-zinc-400 hover:text-scarlet transition-colors"
                                             >
                                                 <Trash2 className="w-5 h-5" />
                                             </button>
@@ -300,9 +300,9 @@ const App = () => {
             </main>
 
             {/* Footer */}
-            <footer className="mt-8 pb-4 text-center text-zinc-400 text-[10px] space-y-1">
+            <footer className="mt-8 pb-4 text-center text-gold/60 text-[10px] space-y-1">
                 <p>&copy; 2026 Chinese AI Coach</p>
-                <p className="opacity-50 font-medium">Version 1.0.2</p>
+                <p className="opacity-70 font-bold">Version 1.0.3</p>
             </footer>
         </div>
     );
