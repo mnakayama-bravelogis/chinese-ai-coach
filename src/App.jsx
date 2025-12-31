@@ -45,6 +45,15 @@ const App = () => {
         setData(null);
         setStatus('AIが解析中...');
 
+        // キャッシュチェック: 保存済み単語にあれば即座に表示
+        const cached = savedWords.find(s => s.word === word);
+        if (cached) {
+            setData(cached.data);
+            setLoading(false);
+            setStatus('');
+            return;
+        }
+
         try {
             const response = await fetch('/.netlify/functions/generate', {
                 method: 'POST',
@@ -286,24 +295,28 @@ const App = () => {
                             保存した単語 ({savedWords.length})
                         </h2>
 
-                        <div className="grid gap-2">
+                        <div className="space-y-1">
+                            {/* Table Header */}
+                            <div className="px-4 py-2 grid grid-cols-[80px_100px_1fr_80px] gap-2 text-[10px] font-bold text-gold uppercase tracking-wider border-b border-zinc-200">
+                                <span>単語</span>
+                                <span>ピンイン</span>
+                                <span>意味</span>
+                                <span className="text-right pr-2">操作</span>
+                            </div>
+
                             {savedWords.length === 0 ? (
                                 <div className="text-center py-20 bg-ivory/50 rounded-xl border border-dashed border-zinc-300">
                                     <p className="text-zinc-500 text-sm font-medium">保存された単語はありません。</p>
                                 </div>
                             ) : (
                                 savedWords.map((item) => (
-                                    <div key={item.id} className="premium-card px-4 py-2 flex justify-between items-center group hover:border-scarlet/30 transition-all gap-4">
-                                        <div className="flex items-center gap-3 overflow-hidden flex-1">
-                                            <div className="flex items-baseline gap-1.5 shrink-0">
-                                                <span className="text-base font-bold text-zinc-800">{item.word}</span>
-                                                <span className="text-[10px] text-zinc-400 font-medium">{item.data.pinyin}</span>
-                                            </div>
-                                            <p className="text-zinc-500 text-[11px] font-medium truncate uppercase">
-                                                {item.data.meanings?.[0]?.short_definition || (item.data.meanings?.[0]?.definition || item.data.definitions?.original || '').split('。')[0]}
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center gap-1 shrink-0">
+                                    <div key={item.id} className="premium-card px-4 py-2 grid grid-cols-[80px_100px_1fr_80px] gap-2 items-center group hover:border-scarlet/30 transition-all">
+                                        <span className="text-sm font-bold text-zinc-800 truncate">{item.word}</span>
+                                        <span className="text-[10px] text-zinc-400 font-medium truncate">{item.data.pinyin}</span>
+                                        <p className="text-zinc-500 text-[11px] font-medium truncate">
+                                            {item.data.meanings?.[0]?.short_definition || (item.data.meanings?.[0]?.definition || item.data.definitions?.original || '').split('。')[0]}
+                                        </p>
+                                        <div className="flex items-center justify-end gap-1">
                                             <button
                                                 onClick={() => {
                                                     setData(item.data);
@@ -312,13 +325,13 @@ const App = () => {
                                                 }}
                                                 className="p-1.5 text-zinc-400 hover:text-scarlet transition-colors"
                                             >
-                                                <Search className="w-4 h-4" />
+                                                <Search className="w-3.5 h-3.5" />
                                             </button>
                                             <button
                                                 onClick={() => deleteWord(item.id)}
                                                 className="p-1.5 text-zinc-300 hover:text-scarlet transition-colors"
                                             >
-                                                <Trash2 className="w-4 h-4" />
+                                                <Trash2 className="w-3.5 h-3.5" />
                                             </button>
                                         </div>
                                     </div>
@@ -333,7 +346,7 @@ const App = () => {
             {/* Footer */}
             < footer className="mt-8 pb-4 text-center text-gold/60 text-[10px] space-y-1" >
                 <p>&copy; 2026 Chinese AI Coach</p>
-                <p className="opacity-70 font-bold">Version 1.0.6</p>
+                <p className="opacity-70 font-bold">Version 1.0.7</p>
             </footer >
         </div >
     );
