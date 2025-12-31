@@ -166,50 +166,47 @@ const App = () => {
                                         </div>
 
                                         <div className="mb-4">
-                                            <div className="flex items-baseline gap-3 mb-1">
-                                                <h2 className="text-3xl font-bold text-zinc-900">{data.word}</h2>
+                                            <div className="flex items-baseline gap-2 mb-1">
+                                                <h2 className="text-2xl font-bold text-zinc-800">{data.word}</h2>
                                                 <span
                                                     onClick={() => speak(data.word)}
-                                                    className="text-xl text-zinc-500 font-medium cursor-pointer hover:text-scarlet transition-all flex items-center gap-1"
+                                                    className="text-lg text-zinc-500 font-medium cursor-pointer hover:text-scarlet transition-all flex items-center gap-1"
                                                 >
                                                     {data.pinyin}
                                                     <Volume2 className="w-4 h-4" />
                                                 </span>
                                             </div>
-                                            <span className="inline-block px-2 py-0.5 bg-scarlet/10 text-scarlet rounded-full text-[10px] font-bold border border-scarlet/20">
-                                                {data.part_of_speech}
-                                            </span>
                                         </div>
 
-                                        <div className="grid gap-4 md:grid-cols-2 mb-4 text-sm">
-                                            <div className="space-y-1">
-                                                <h3 className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">原義</h3>
-                                                <p className="leading-snug">{data.definitions.original}</p>
-                                            </div>
-                                            <div className="space-y-1">
-                                                <h3 className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">派生義 / 文脈</h3>
-                                                <p className="leading-snug">{data.definitions.derived}</p>
-                                                <p className="text-[10px] text-slate-400">{data.definitions.context}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            <h3 className="text-gold text-[10px] font-bold uppercase tracking-wider">例文</h3>
-                                            {data.examples.map((ex, i) => (
-                                                <div key={i} className="bg-white/40 border border-zinc-200/50 rounded-lg p-3 space-y-1 group/item">
-                                                    <div className="flex items-center justify-between">
-                                                        <div className="flex items-center gap-1.5 text-scarlet text-[10px] font-bold">
-                                                            <ArrowRight className="w-2.5 h-2.5" /> {ex.scenario}
-                                                        </div>
-                                                        <button
-                                                            onClick={() => speak(ex.zh)}
-                                                            className="p-1 hover:bg-white/60 rounded-md transition-all text-zinc-400 hover:text-scarlet"
-                                                        >
-                                                            <Volume2 className="w-3.5 h-3.5" />
-                                                        </button>
+                                        <div className="space-y-6">
+                                            {data.meanings.map((m, idx) => (
+                                                <div key={idx} className="space-y-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="px-2 py-0.5 bg-scarlet/10 text-scarlet rounded-full text-[10px] font-bold border border-scarlet/20 shrink-0">
+                                                            {m.part_of_speech}
+                                                        </span>
+                                                        <p className="text-sm font-bold text-zinc-800 leading-snug">{m.definition}</p>
                                                     </div>
-                                                    <p className="text-lg font-medium text-zinc-900">{ex.zh}</p>
-                                                    <p className="text-zinc-700 text-sm font-medium">{ex.jp}</p>
+
+                                                    <div className="space-y-2 pl-3 border-l-2 border-zinc-200/50 ml-1">
+                                                        {m.examples.map((ex, i) => (
+                                                            <div key={i} className="group/item py-1">
+                                                                <div className="flex items-center justify-between">
+                                                                    <div className="flex items-center gap-1.5 text-scarlet text-[9px] font-bold opacity-60">
+                                                                        <ArrowRight className="w-2.5 h-2.5" /> {ex.scenario}
+                                                                    </div>
+                                                                    <button
+                                                                        onClick={() => speak(ex.zh)}
+                                                                        className="p-1 hover:bg-zinc-100 rounded-md transition-all text-zinc-300 hover:text-scarlet"
+                                                                    >
+                                                                        <Volume2 className="w-3 h-3" />
+                                                                    </button>
+                                                                </div>
+                                                                <p className="text-base font-bold text-zinc-800 leading-tight">{ex.zh}</p>
+                                                                <p className="text-zinc-600 text-xs font-medium">{ex.jp}</p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
@@ -269,10 +266,12 @@ const App = () => {
                                     <div key={item.id} className="premium-card p-6 flex justify-between items-center group hover:border-scarlet/30 transition-all">
                                         <div>
                                             <div className="flex items-baseline gap-3 mb-1">
-                                                <span className="text-2xl font-bold text-zinc-900">{item.word}</span>
-                                                <span className="text-zinc-600 font-medium">{item.data.pinyin}</span>
+                                                <span className="text-xl font-bold text-zinc-800">{item.word}</span>
+                                                <span className="text-zinc-500 text-sm font-medium">{item.data.pinyin}</span>
                                             </div>
-                                            <p className="text-zinc-700 text-sm font-medium line-clamp-1">{item.data.definitions.original}</p>
+                                            <p className="text-zinc-600 text-xs font-medium line-clamp-1">
+                                                {item.data.meanings?.[0]?.definition || item.data.definitions?.original}
+                                            </p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button
@@ -296,15 +295,16 @@ const App = () => {
                             )}
                         </div>
                     </motion.div>
-                )}
-            </main>
+                )
+                }
+            </main >
 
             {/* Footer */}
-            <footer className="mt-8 pb-4 text-center text-gold/60 text-[10px] space-y-1">
+            < footer className="mt-8 pb-4 text-center text-gold/60 text-[10px] space-y-1" >
                 <p>&copy; 2026 Chinese AI Coach</p>
-                <p className="opacity-70 font-bold">Version 1.0.3</p>
-            </footer>
-        </div>
+                <p className="opacity-70 font-bold">Version 1.0.4</p>
+            </footer >
+        </div >
     );
 };
 

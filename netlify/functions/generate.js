@@ -43,13 +43,21 @@ JSON Schema:
 {
   "word": "単語",
   "pinyin": "ピンイン",
-  "definitions": { "original": "原義", "derived": "派生義", "context": "文脈" },
-  "part_of_speech": "品詞",
-  "examples": [{ "scenario": "...", "zh": "...", "jp": "...", "note": "..." }],
+  "meanings": [
+    {
+      "part_of_speech": "品詞",
+      "definition": "意味の解説。一般的な使われ方を主軸にし、必要に応じて原義を補足。一つの単語で動詞・名詞など複数の意味がある場合は、必ず意味ごとにエントリを分けてください。",
+      "examples": [
+        { "scenario": "シチュエーション", "zh": "中国語例文1", "jp": "日本語訳1" },
+        { "scenario": "シチュエーション", "zh": "中国語例文2", "jp": "日本語訳2" }
+      ]
+    }
+  ],
   "synonyms": [{ "word": "...", "pinyin": "...", "nuance": "..." }],
   "usage_tips": "...",
   "summary": ["...", "...", "..."]
-}`,
+}
+Note: 各意味(meaning)に対し、必ず2つ以上の例文(examples)を作成してください。`,
                 },
                 {
                     role: 'user',
