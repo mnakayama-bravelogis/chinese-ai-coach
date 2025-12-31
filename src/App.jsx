@@ -96,20 +96,20 @@ const App = () => {
         <div className="max-w-2xl mx-auto px-4 py-4 min-h-screen">
             {/* Navigation */}
             <nav className="flex justify-between items-center mb-6">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent flex items-center gap-2">
-                    <Languages className="w-6 h-6 text-indigo-500" />
+                <h1 className="text-xl font-bold bg-gradient-to-r from-scarlet to-gold bg-clip-text text-transparent flex items-center gap-2">
+                    <Languages className="w-6 h-6 text-scarlet" />
                     Chinese AI Coach
                 </h1>
-                <div className="flex bg-white/5 p-1 rounded-xl">
+                <div className="flex bg-zinc-100 p-1 rounded-xl shadow-sm border border-zinc-200">
                     <button
                         onClick={() => setView('search')}
-                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'search' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'search' ? 'bg-scarlet text-white shadow-md' : 'text-zinc-500 hover:text-scarlet'}`}
                     >
                         <Search className="w-4 h-4" />
                     </button>
                     <button
                         onClick={() => setView('library')}
-                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'library' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                        className={`px-4 py-1.5 rounded-lg transition-all ${view === 'library' ? 'bg-scarlet text-white shadow-md' : 'text-zinc-500 hover:text-scarlet'}`}
                     >
                         <Book className="w-4 h-4" />
                     </button>
@@ -147,8 +147,8 @@ const App = () => {
                                     exit={{ opacity: 0 }}
                                     className="flex flex-col items-center justify-center py-20 space-y-4"
                                 >
-                                    <div className="w-16 h-16 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
-                                    <p className="text-indigo-400 font-medium animate-pulse">{status}</p>
+                                    <div className="w-16 h-16 border-4 border-scarlet/10 border-t-scarlet rounded-full animate-spin" />
+                                    <p className="text-scarlet font-medium animate-pulse">{status}</p>
                                 </motion.div>
                             )}
 
@@ -160,23 +160,23 @@ const App = () => {
                                 >
                                     <div className="premium-card p-5 relative overflow-hidden">
                                         <div className="absolute top-0 right-0 p-4">
-                                            <button onClick={saveWord} className="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-1.5 text-xs font-semibold">
+                                            <button onClick={saveWord} className="text-scarlet hover:text-scarlet/80 transition-colors flex items-center gap-1.5 text-xs font-semibold">
                                                 <Plus className="w-4 h-4" /> 保存
                                             </button>
                                         </div>
 
                                         <div className="mb-4">
                                             <div className="flex items-baseline gap-3 mb-1">
-                                                <h2 className="text-3xl font-bold">{data.word}</h2>
+                                                <h2 className="text-3xl font-bold text-zinc-900">{data.word}</h2>
                                                 <span
                                                     onClick={() => speak(data.word)}
-                                                    className="text-xl text-slate-400 font-medium cursor-pointer hover:text-indigo-400 transition-colors flex items-center gap-1"
+                                                    className="text-xl text-zinc-500 font-medium cursor-pointer hover:text-scarlet transition-all flex items-center gap-1"
                                                 >
                                                     {data.pinyin}
                                                     <Volume2 className="w-4 h-4" />
                                                 </span>
                                             </div>
-                                            <span className="inline-block px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-full text-[10px] font-bold border border-indigo-500/30">
+                                            <span className="inline-block px-2 py-0.5 bg-scarlet/10 text-scarlet rounded-full text-[10px] font-bold border border-scarlet/20">
                                                 {data.part_of_speech}
                                             </span>
                                         </div>
@@ -194,22 +194,22 @@ const App = () => {
                                         </div>
 
                                         <div className="space-y-3">
-                                            <h3 className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">例文</h3>
+                                            <h3 className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">例文</h3>
                                             {data.examples.map((ex, i) => (
-                                                <div key={i} className="bg-white/5 border border-white/5 rounded-lg p-3 space-y-1 group/item">
+                                                <div key={i} className="bg-zinc-50 border border-zinc-100 rounded-lg p-3 space-y-1 group/item">
                                                     <div className="flex items-center justify-between">
-                                                        <div className="flex items-center gap-1.5 text-indigo-400 text-[10px] font-bold">
+                                                        <div className="flex items-center gap-1.5 text-scarlet text-[10px] font-bold">
                                                             <ArrowRight className="w-2.5 h-2.5" /> {ex.scenario}
                                                         </div>
                                                         <button
                                                             onClick={() => speak(ex.zh)}
-                                                            className="p-1 hover:bg-white/10 rounded-md transition-all text-slate-500 hover:text-indigo-400"
+                                                            className="p-1 hover:bg-zinc-200 rounded-md transition-all text-zinc-400 hover:text-scarlet"
                                                         >
                                                             <Volume2 className="w-3.5 h-3.5" />
                                                         </button>
                                                     </div>
-                                                    <p className="text-lg font-medium">{ex.zh}</p>
-                                                    <p className="text-slate-400 text-sm">{ex.jp}</p>
+                                                    <p className="text-lg font-medium text-zinc-900">{ex.zh}</p>
+                                                    <p className="text-zinc-600 text-sm">{ex.jp}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -218,28 +218,28 @@ const App = () => {
                                     {/* Synonyms & Tips */}
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div className="premium-card p-4">
-                                            <h3 className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-2">類義語</h3>
+                                            <h3 className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider mb-2">類義語</h3>
                                             <div className="space-y-2">
                                                 {data.synonyms.map((syn, i) => (
-                                                    <div key={i} className="flex justify-between items-center border-b border-white/5 pb-1">
+                                                    <div key={i} className="flex justify-between items-center border-b border-zinc-100 pb-1">
                                                         <div className="flex items-center gap-2">
-                                                            <span className="font-bold text-sm">{syn.word}</span>
-                                                            <span className="text-[10px] text-slate-400">{syn.pinyin}</span>
-                                                            <button onClick={() => speak(syn.word)} className="text-slate-600 hover:text-indigo-400 transition-colors">
+                                                            <span className="font-bold text-sm text-zinc-800">{syn.word}</span>
+                                                            <span className="text-[10px] text-zinc-400">{syn.pinyin}</span>
+                                                            <button onClick={() => speak(syn.word)} className="text-zinc-300 hover:text-scarlet transition-colors">
                                                                 <Volume2 className="w-3 h-3" />
                                                             </button>
                                                         </div>
-                                                        <span className="text-[11px] text-slate-300">{syn.nuance}</span>
+                                                        <span className="text-[11px] text-zinc-600">{syn.nuance}</span>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
                                         <div className="premium-card p-4">
-                                            <h3 className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-2">使い分けのコツ</h3>
-                                            <p className="text-xs leading-relaxed text-slate-300">{data.usage_tips}</p>
+                                            <h3 className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider mb-2">使い分けのコツ</h3>
+                                            <p className="text-xs leading-relaxed text-zinc-700">{data.usage_tips}</p>
                                             <div className="mt-3 flex flex-wrap gap-1.5">
                                                 {data.summary.map((tag, i) => (
-                                                    <span key={i} className="text-[9px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">#{tag}</span>
+                                                    <span key={i} className="text-[9px] bg-zinc-100 text-zinc-500 px-1.5 py-0.5 rounded border border-zinc-200">#{tag}</span>
                                                 ))}
                                             </div>
                                         </div>
@@ -254,25 +254,25 @@ const App = () => {
                         animate={{ opacity: 1 }}
                         className="space-y-4"
                     >
-                        <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                            <Book className="w-6 h-6 text-indigo-500" />
+                        <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-zinc-800">
+                            <Book className="w-6 h-6 text-scarlet" />
                             保存した単語 ({savedWords.length})
                         </h2>
 
                         <div className="grid gap-4">
                             {savedWords.length === 0 ? (
-                                <div className="text-center py-20 bg-white/5 rounded-2xl border border-dashed border-white/10">
-                                    <p className="text-slate-500">保存された単語はありません。</p>
+                                <div className="text-center py-20 bg-zinc-50 rounded-xl border border-dashed border-zinc-200">
+                                    <p className="text-zinc-400 text-sm">保存された単語はありません。</p>
                                 </div>
                             ) : (
                                 savedWords.map((item) => (
-                                    <div key={item.id} className="premium-card p-6 flex justify-between items-center group hover:bg-white/10 transition-all">
+                                    <div key={item.id} className="premium-card p-6 flex justify-between items-center group hover:border-scarlet/30 transition-all">
                                         <div>
                                             <div className="flex items-baseline gap-3 mb-1">
-                                                <span className="text-2xl font-bold">{item.word}</span>
-                                                <span className="text-slate-400">{item.data.pinyin}</span>
+                                                <span className="text-2xl font-bold text-zinc-900">{item.word}</span>
+                                                <span className="text-zinc-500">{item.data.pinyin}</span>
                                             </div>
-                                            <p className="text-slate-300 text-sm line-clamp-1">{item.data.definitions.original}</p>
+                                            <p className="text-zinc-600 text-sm line-clamp-1">{item.data.definitions.original}</p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button
@@ -286,7 +286,7 @@ const App = () => {
                                             </button>
                                             <button
                                                 onClick={() => deleteWord(item.id)}
-                                                className="p-2 text-slate-600 hover:text-red-400 transition-colors"
+                                                className="p-2 text-zinc-300 hover:text-scarlet transition-colors"
                                             >
                                                 <Trash2 className="w-5 h-5" />
                                             </button>
@@ -300,9 +300,9 @@ const App = () => {
             </main>
 
             {/* Footer */}
-            <footer className="mt-8 pb-4 text-center text-slate-600 text-[10px] space-y-1">
+            <footer className="mt-8 pb-4 text-center text-zinc-400 text-[10px] space-y-1">
                 <p>&copy; 2026 Chinese AI Coach</p>
-                <p className="opacity-50">Version 1.0.1</p>
+                <p className="opacity-50 font-medium">Version 1.0.2</p>
             </footer>
         </div>
     );

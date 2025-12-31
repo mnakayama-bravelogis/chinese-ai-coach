@@ -7,12 +7,14 @@ export default {
     theme: {
         extend: {
             colors: {
-                'primary': '#6366f1',
-                'secondary': '#a855f7',
-                'dark': '#0f172a',
+                'freesia': '#EFC081',
+                'scarlet': '#BC0A0F',
+                'gold': '#AF9F30',
+                'ivory': '#EFEEE9',
+                'dark': '#1a1a1a',
             },
             backgroundImage: {
-                'gradient-premium': 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
+                'gradient-premium': 'linear-gradient(135deg, #BC0A0F 0%, #AF9F30 100%)',
             }
         },
     },
