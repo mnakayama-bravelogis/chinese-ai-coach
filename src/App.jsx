@@ -333,7 +333,7 @@ const App = () => {
             {/* Footer */}
             < footer className="mt-8 pb-4 text-center text-gold/60 text-[10px] space-y-1" >
                 <p>&copy; 2026 Chinese AI Coach</p>
-                <p className="opacity-70 font-bold">Version 1.0.5</p>
+                <p className="opacity-70 font-bold">Version 1.0.6</p>
             </footer >
         </div >
     );

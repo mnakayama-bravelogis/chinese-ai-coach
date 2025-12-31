@@ -32,37 +32,33 @@ export const handler = async (event, context) => {
         }
 
         const response = await openai.chat.completions.create({
-            // 環境変数 OPENAI_MODEL でモデルを切り替え可能。デフォルトは gpt-4o。
-            model: process.env.OPENAI_MODEL || 'gpt-4o',
+            model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
             messages: [
                 {
                     role: 'system',
-                    content: `Role: プロの中国語ビジネスコーチ
-Constraint: 以下のJSONスキーマのみを出力（Markdown禁止）。
-JSON Schema:
+                    content: `Role: 中国語ビジネスコーチ
+Constraint: JSON出力のみ。
+Schema:
 {
   "word": "単語",
   "pinyin": "ピンイン",
   "meanings": [
     {
       "part_of_speech": "品詞",
-      "short_definition": "一言で表す簡単な意味（訳）",
-      "definition": "意味の解説。一般的な使われ方を主軸にし、必要に応じて原義を補足。一つの単語で動詞・名詞など複数の意味がある場合は、必ず意味ごとにエントリを分けてください。",
-      "examples": [
-        { "scenario": "シチュエーション", "zh": "中国語例文1", "jp": "日本語訳1" },
-        { "scenario": "シチュエーション", "zh": "中国語例文2", "jp": "日本語訳2" }
-      ]
+      "short_definition": "簡単な訳",
+      "definition": "詳細解説（原義含む）",
+      "examples": [{ "scenario": "...", "zh": "...", "jp": "..." }]
     }
   ],
   "synonyms": [{ "word": "...", "pinyin": "...", "nuance": "..." }],
   "usage_tips": "...",
-  "summary": ["...", "...", "..."]
+  "summary": ["..."]
 }
-Note: 各意味(meaning)に対し、必ず2つ以上の例文(examples)を作成してください。`,
+Note: 各意味(meaning)に対し例文は2つ。簡潔かつ正確に。`
                 },
                 {
                     role: 'user',
-                    content: `解説する単語: ${word}`,
+                    content: `単語: ${word}`,
                 },
             ],
             response_format: { type: 'json_object' },
