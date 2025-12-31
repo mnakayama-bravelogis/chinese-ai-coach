@@ -300,8 +300,9 @@ const App = () => {
             </main>
 
             {/* Footer */}
-            <footer className="mt-8 pb-4 text-center text-slate-600 text-[10px]">
-                <p>&copy; 2024 Chinese AI Coach. Powered by GPT-4o & Supabase.</p>
+            <footer className="mt-8 pb-4 text-center text-slate-600 text-[10px] space-y-1">
+                <p>&copy; 2026 Chinese AI Coach</p>
+                <p className="opacity-50">Version 1.0.1</p>
             </footer>
         </div>
     );
