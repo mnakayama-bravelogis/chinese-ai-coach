@@ -1,0 +1,21 @@
+{
+    "name": "Chinese AI Coach",
+    "short_name": "AI Coach",
+    "description": "AIを活用した高度な中国語学習アシスタント",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#EFC081",
+    "theme_color": "#AF9F30",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
