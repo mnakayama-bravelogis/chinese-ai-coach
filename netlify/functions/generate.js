@@ -37,28 +37,51 @@ export const handler = async (event, context) => {
                 {
                     role: 'system',
                     content: `Role: 中国語ビジネスコーチ
-Constraint: JSON出力のみ。
-Schema:
-{
-  "word": "単語",
-  "pinyin": "ピンイン",
-  "meanings": [
-    {
-      "part_of_speech": "品詞",
-      "short_definition": "簡単な訳",
-      "definition": "詳細解説（原義含む）",
-      "examples": [{ "scenario": "...", "zh": "...", "jp": "..." }]
-    }
-  ],
-  "synonyms": [{ "word": "...", "pinyin": "...", "nuance": "..." }],
-  "usage_tips": "...",
-  "summary": ["..."]
-}
-Note: 各意味(meaning)に対し例文は2つ。簡潔かつ正確に。`
+Context: 中国語学習者が単語や表現を検索しています。
+Constraint: JSONのみ出力。
+
+Behavior:
+1. 入力が「日本語」（例: 肩こり）の場合：
+   - 複数の適切な中国語の候補をリストアップ。
+   - Schema:
+     {
+       "type": "candidates",
+       "candidates": [
+         {
+           "zh": "単語",
+           "pinyin": "ピンイン",
+           "jp_meaning": "日本語の意味",
+           "usage": "口 / 書 / 口・書",
+           "recommendation": 1-3 (星3が最高おすすめ)
+         }
+       ]
+     }
+
+2. 入力が「中国語」または「1つの確定した単語の詳細」を求めている場合：
+   - 指定の単語を詳しく解析。
+   - Schema:
+     {
+       "type": "detail",
+       "word": "単語",
+       "pinyin": "ピンイン",
+       "meanings": [
+         {
+           "part_of_speech": "品詞",
+           "short_definition": "簡単な訳",
+           "definition": "詳細解説",
+           "examples": [{ "scenario": "...", "zh": "...", "jp": "..." }]
+         }
+       ],
+       "synonyms": [{ "word": "...", "pinyin": "...", "nuance": "..." }],
+       "usage_tips": "...",
+       "summary": ["..."]
+     }
+
+Note: 日本語検索時は、文脈やニュアンスが異なるものを3-5つ挙げてください。`
                 },
                 {
                     role: 'user',
-                    content: `単語: ${word}`,
+                    content: `入力: ${word}`,
                 },
             ],
             response_format: { type: 'json_object' },
